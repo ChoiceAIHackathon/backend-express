@@ -16,28 +16,26 @@ async function getQuestions(req, res) {
 // Create a new question
 async function createQuestion(req, res) {
   try {
-    // Extracting data from the request body
-    const { name, category, shopName, purchaseLink } = req.body;
+    // Extracting decision-making question data from the request body
+    const { questionText, option1, option2 } = req.body;
 
-    // Set the slug based on the name
-    const slug = slugify(name, { lower: true });
+    // // Optionally, generate a slug for the question to use in URLs or as an identifier
+    // const slug = slugify(questionText, { lower: true, strict: true });
 
-    // Creating a new Tool instance with name, category, purchaseLink and slug
+    // Creating a new Question instance with the provided question text, options, pros, and cons
     const question = new Question({
-      name,
-      category,
-      shopName,
-      purchaseLink,
-      slug,
-      imageUrl: `${slug}.jpg`, // Adjust the path and extension as needed
+      questionText,
+      option1,
+      option2,
+      // slug // Assuming your Question model supports a 'slug' field for easy referencing
     });
 
-    // Saving the new Tool to the database
+    // Saving the new Question to the database
     const savedQuestion = await question.save();
 
     res.status(201).json(savedQuestion);
   } catch (error) {
-    console.error("Error creating tool:", error);
+    console.error("Error creating question:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
