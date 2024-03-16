@@ -13,14 +13,42 @@ const Question = require("../models/questionModel");
 //   }
 // }
 // Get questions with pagination
+// async function getQuestions(req, res) {
+//   const page = parseInt(req.query.page) || 1;
+//   const limit = 1; // Set the number of items per page
+//   const skip = (page - 1) * limit;
+
+//   try {
+//     const questions = await Question.find().skip(skip).limit(limit);
+//     res.status(200).json(questions);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// }
+
+// Get all questions with pagination
 async function getQuestions(req, res) {
   const page = parseInt(req.query.page) || 1;
-  const limit = 1; // Set the number of items per page
-  const skip = (page - 1) * limit;
+  const limit = 1; // Change the limit as needed
 
   try {
-    const questions = await Question.find().skip(skip).limit(limit);
-    res.status(200).json(questions);
+    const totalQuestions = await Question.countDocuments();
+    const totalPages = Math.ceil(totalQuestions / limit);
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const questions = await Question.find().limit(limit).skip(startIndex);
+
+    res.json({
+      questions,
+      pagination: {
+        page,
+        limit,
+        totalPages,
+        totalQuestions,
+      },
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
