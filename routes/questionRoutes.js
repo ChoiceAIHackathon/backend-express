@@ -31,3 +31,8 @@ router.put(
 router.delete("/:id", questionController.deleteQuestion);
 
 module.exports = router;
+
+// // mongodb+srv://irigerte:<5pEvNF7yMSWI9ITU>@cluster0.b4lfk0v.mongodb.net/
+// 5pEvNF7yMSWI9ITU
+// mongodb+srv://irigerte:pEvNF7yMSWI9ITU@cluster0.b4lfk0v.mongodb.net/questiondb?retryWrites=true&w=majority
+// B_URL=mongodb+srv://olegs:86MV3WJre2oTx7j2@nodecluster.cxk6m0c.mongodb.net/questiondb?retryWrites=true&w=majority

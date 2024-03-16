@@ -2,43 +2,45 @@
 const mongoose = require("mongoose");
 
 const questionSchema = new mongoose.Schema({
-  name: {
+  questionText: {
     type: String,
     required: true,
-    unique: true,
-    trim: true,
-    maxlength: 50,
   },
-  category: {
-    type: String,
-    enum: [
-      "Cookware",
-      "Cutlery",
-      "Bakeware",
-      "Utensils",
-      "Appliances",
-      "Kitchen Gadgets",
-      "Other",
+  option1: {
+    text: {
+      type: String,
+      required: true,
+    },
+    pros: [
+      {
+        type: String,
+        required: true,
+      },
     ],
-    default: "Other",
-    required: true,
+    cons: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
   },
-  shopName: {
-    type: String, // Add a field to store the shop name
-    trim: true,
-  },
-  purchaseLink: {
-    type: String, // Assuming the link is a URL
-    trim: true,
-  },
-  slug: {
-    type: String,
-    unique: true,
-    trim: true,
-  },
-  imageUrl: {
-    type: String,
-    trim: true,
+  option2: {
+    text: {
+      type: String,
+      required: true,
+    },
+    pros: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
+    cons: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
   },
 });
 
