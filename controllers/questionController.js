@@ -83,14 +83,38 @@ async function createQuestion(req, res) {
 }
 
 // Update an existing question
+// async function updateQuestion(req, res) {
+//   const { id } = req.params;
+//   const { _id, optionText, pros, cons } = req.body;
+
+//   try {
+//     const updatedQuestion = await Question.findByIdAndUpdate(
+//       id,
+//       { name, category, shopName, purchaseLink },
+//       { new: true }
+//     );
+//     res.status(200).json(updatedQuestion);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// }
+
+// Update an existing question
 async function updateQuestion(req, res) {
   const { id } = req.params;
-  const { name, category, shopName, purchaseLink } = req.body;
+  const { optionText, pros, cons } = req.body;
 
   try {
     const updatedQuestion = await Question.findByIdAndUpdate(
       id,
-      { name, category, shopName, purchaseLink },
+      {
+        option1: {
+          text: optionText,
+          pros: [...pros],
+          cons: [...cons],
+        },
+      },
       { new: true }
     );
     res.status(200).json(updatedQuestion);

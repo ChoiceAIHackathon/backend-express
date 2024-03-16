@@ -20,7 +20,14 @@ router.post(
 );
 
 // Update an existing question
-router.put(
+// router.put(
+//   "/:id",
+//   validateUpdateQuestion,
+//   validateRequest,
+//   questionController.updateQuestion
+// );
+
+router.patch(
   "/:id",
   validateUpdateQuestion,
   validateRequest,
