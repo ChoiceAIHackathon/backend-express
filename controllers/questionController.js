@@ -3,9 +3,23 @@ const slugify = require("slugify");
 const Question = require("../models/questionModel");
 
 // Get all questions
+// async function getQuestions(req, res) {
+//   try {
+//     const questions = await Question.find();
+//     res.status(200).json(questions);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// }
+// Get questions with pagination
 async function getQuestions(req, res) {
+  const page = parseInt(req.query.page) || 1;
+  const limit = 1; // Set the number of items per page
+  const skip = (page - 1) * limit;
+
   try {
-    const questions = await Question.find();
+    const questions = await Question.find().skip(skip).limit(limit);
     res.status(200).json(questions);
   } catch (error) {
     console.error(error);
