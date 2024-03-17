@@ -21,8 +21,7 @@ exports.register = async (req, res) => {
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
-    // console.error("Error registering user:", error);
-    // res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error registering user:", error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -50,10 +49,7 @@ exports.login = async (req, res) => {
       email: user.email,
     };
     // Generate and send a token for authentication
-    //const token = generateToken(user);
     res.status(200).json({ token, user: userData });
-    //console.log("Generated Token:", token);
-    //res.status(200).json({ token });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -67,25 +63,11 @@ function generateToken(user) {
       username: user.username,
       email: user.email,
     };
-    // const expiresIn = "1h";
     const token = jwt.sign(payload, secretKey);
-    // const token = jwt.sign(payload, secretKey, {
-    //   expiresIn,
-    //   algorithm: "HS256",
-    // });
+
     return token;
   } catch (error) {
     console.error("Error generating token:", error);
     throw new Error("Error generating token");
   }
 }
-
-// Secret Key Security: Ensure that your secret key ("your-secret-key") is kept secure. It's a sensitive piece of information and should not be hardcoded in your source code. Consider using environment variables for this purpose.
-
-// Token Expiration Time: The token expiration time is set to 1 hour ("1h"). You might want to adjust this based on your application's requirements. Shorter expiration times enhance security but might inconvenience users.
-
-// Error Handling: Your error handling is good, but you might want to log errors or handle them in a way that doesn't expose sensitive information to users.
-
-// Middleware for Token Verification: When users make authenticated requests to your server, you'll need middleware to verify the JWT. Consider implementing middleware that checks the token in the request header.
-
-// HTTPS: Ensure your application is served over HTTPS in production to enhance security.
