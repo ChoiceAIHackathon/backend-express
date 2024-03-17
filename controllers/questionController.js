@@ -29,6 +29,24 @@ async function getQuestions(req, res) {
   }
 }
 
+async function getAllQuestions(req, res) {
+  try {
+    // Fetch all questions from the database
+    const questions = await Question.find();
+
+    // Return the questions as JSON response
+    res.status(200).json(questions);
+  } catch (error) {
+    // Handle errors
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+module.exports = {
+  getAllQuestions,
+};
+
 // Create a new question
 async function createQuestion(req, res) {
   try {
@@ -94,6 +112,7 @@ async function deleteQuestion(req, res) {
 
 module.exports = {
   getQuestions,
+  getAllQuestions,
   createQuestion,
   updateQuestion,
   deleteQuestion,

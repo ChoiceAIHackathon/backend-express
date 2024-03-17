@@ -11,6 +11,8 @@ const questionController = require("../controllers/questionController");
 // Get all questions
 router.get("/", questionController.getQuestions);
 
+router.get("/all", questionController.getAllQuestions);
+
 // Create a new question
 router.post(
   "/",
